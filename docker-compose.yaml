@@ -1,0 +1,36 @@
+version: '1'
+
+name: "coconet"
+
+services:
+  bootnode:
+    hostname: bootnode
+    image: eth_node
+    volumes:
+      - ./consensus:/devnet/consensus
+      - ./execution:/devnet/execution
+      - ./start_bootnode.sh:/devnet/start.sh
+    command: sh -c "chmod +x ./start.sh && ./start.sh"
+    networks:
+      devnet:
+        ipv4_address: 10.5.0.5
+
+  node1:
+    hostname: node1
+    image: eth_node
+    volumes:
+      - ./consensus:/devnet/consensus
+      - ./execution:/devnet/execution
+      - ./start_node.sh:/devnet/start.sh
+    command: sh -c "chmod +x ./start.sh && ./start.sh"
+    networks:
+      devnet:
+        ipv4_address: 10.5.0.6
+
+networks:
+  devnet:
+    driver: bridge
+    ipam:
+     config:
+       - subnet: 10.5.0.0/16
+         gateway: 10.5.0.1
