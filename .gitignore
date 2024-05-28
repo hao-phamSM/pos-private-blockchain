@@ -1,0 +1,9 @@
+.env
+dist
+docker-compose-demo.yaml
+prysm
+genesis.ssz
+beacondata*
+gethdata*
+validatordata*
+bin
