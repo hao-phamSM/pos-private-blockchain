@@ -1,4 +1,4 @@
-# Generate consensus's genesis block
+# Generate consensus's genesis state
 ./prysmctl testnet generate-genesis \
  --fork capella \
  --num-validators 64 \
@@ -6,4 +6,5 @@
  --chain-config-file ./consensus/config.yml \
  --geth-genesis-json-in ./execution/genesis.json  \
  --geth-genesis-json-out ./execution/genesis.json \
- --output-ssz ./consensus/genesis.ssz
+ --output-ssz ./consensus/genesis.ssz \
+ --output-json ./consensus/genesis.json

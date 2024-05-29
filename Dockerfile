@@ -16,12 +16,9 @@ FROM ubuntu:latest
 
 RUN apt update && apt-get install -y ca-certificates openssl curl
 WORKDIR /devnet
-RUN openssl rand -hex 32 | tr -d "\n" > "jwt.hex"
 RUN mkdir execution && mkdir consensus
 COPY --from=builder /go-ethereum/build/bin/geth /usr/local/bin/
 COPY --from=builder /beacon-chain /usr/local/bin/
 COPY --from=builder /validator /usr/local/bin/
 COPY --from=builder /prysmctl /usr/local/bin/
-
-
-
+RUN openssl rand -hex 32 | tr -d "\n" > "jwt.hex"

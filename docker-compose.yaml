@@ -11,8 +11,13 @@ services:
     command: sh -c "chmod +x ./start.sh && ./start.sh"
     ports:
       - 8545:8545
+      - 8080:8080
+      - 8081:8081
+      - 9090:9090
+      - 7500:7500
     environment:
       - PUBLIC_IP=10.5.0.5
+      - IS_BOOTNODE=1
     networks:
       devnet:
         ipv4_address: 10.5.0.5
@@ -27,6 +32,8 @@ services:
     command: sh -c "chmod +x ./start.sh && ./start.sh"
     ports:
       - 8546:8545
+      - 9091:9090
+      - 7501:7500
     environment:
       - PUBLIC_IP=10.5.0.6
     networks:
@@ -46,11 +53,32 @@ services:
     command: sh -c "chmod +x ./start.sh && ./start.sh"
     ports:
       - 8547:8545
+      - 9092:9090
     environment:
       - PUBLIC_IP=10.5.0.7
     networks:
       devnet:
         ipv4_address: 10.5.0.7
+    depends_on:
+      bootnode:
+        condition: service_started
+
+  node3:
+    hostname: node3
+    image: eth_node
+    volumes:
+      - ./consensus:/devnet/consensus
+      - ./execution:/devnet/execution
+      - ./start_node.sh:/devnet/start.sh
+    command: sh -c "chmod +x ./start.sh && ./start.sh"
+    ports:
+      - 8548:8545
+      - 9093:9090
+    environment:
+      - PUBLIC_IP=10.5.0.8
+    networks:
+      devnet:
+        ipv4_address: 10.5.0.8
     depends_on:
       bootnode:
         condition: service_started

@@ -7,3 +7,6 @@ beacondata*
 gethdata*
 validatordata*
 bin
+geth
+validator
+beacon-chain
