@@ -14,10 +14,8 @@ services:
       - 8080:8080
       - 8081:8081
       - 9090:9090
-      - 7500:7500
     environment:
       - PUBLIC_IP=10.5.0.5
-      - IS_BOOTNODE=1
     networks:
       devnet:
         ipv4_address: 10.5.0.5
