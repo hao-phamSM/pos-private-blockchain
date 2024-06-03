@@ -13,3 +13,14 @@ web3.eth.sendTransaction({
 
 // Get peers list
 admin.peers.forEach(function(value){console.log(value.network.remoteAddress+"\t"+value.name)})
+
+// Contract
+var abi = [{"type":"function","name":"increment","inputs":[],"outputs":[],"stateMutability":"nonpayable"},{"type":"function","name":"number","inputs":[],"outputs":[{"name":"","type":"uint256","internalType":"uint256"}],"stateMutability":"view"},{"type":"function","name":"setNumber","inputs":[{"name":"newNumber","type":"uint256","internalType":"uint256"}],"outputs":[],"stateMutability":"nonpayable"}]
+
+var counterContract = web3.eth.contract(abi);
+
+var myInstance = counterContract.at('0x30bdaE426d3CBD42e9d41D23958Fac6AD8310f81');
+
+myInstance.number.call();
+
+// forge script script/Counter.sol --broadcast --rpc-url http://localhost:8545 --legacy

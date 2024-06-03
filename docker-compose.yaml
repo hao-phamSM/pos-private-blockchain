@@ -34,6 +34,7 @@ services:
       - 7501:7500
     environment:
       - PUBLIC_IP=10.5.0.6
+      - HAS_VALIDATOR=1
     networks:
       devnet:
         ipv4_address: 10.5.0.6
@@ -54,6 +55,7 @@ services:
       - 9092:9090
     environment:
       - PUBLIC_IP=10.5.0.7
+      - HAS_VALIDATOR=1
     networks:
       devnet:
         ipv4_address: 10.5.0.7
