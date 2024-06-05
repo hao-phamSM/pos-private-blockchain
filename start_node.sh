@@ -19,8 +19,6 @@ geth --http --http.api eth,net,web3,admin \
     --bootnodes $(geth --exec "admin.nodeInfo.enode" attach http://10.5.0.5:8545 | grep -o 'enode://[^ "]*') \
     --netrestrict 10.5.0.0/16 2>&1 | tee geth.log &
 
-GETH_PID=$!
-
 beacon-chain --accept-terms-of-use \
     --datadir beacondata \
     --min-sync-peers 1 \
@@ -37,15 +35,10 @@ beacon-chain --accept-terms-of-use \
     --enable-debug-rpc-endpoints \
     --monitoring-host 0.0.0.0 \
     --execution-endpoint gethdata/geth.ipc 2>&1 | tee beacon-chain.log &
-BEACON_PID=$!
 
-if [ -n "$HAS_VALIDATOR" ]; then
 validator --accept-terms-of-use \
     --datadir validatordata \
     --beacon-rpc-provider 127.0.0.1:4000 \
     --interop-num-validators 64 \
     --chain-config-file ./consensus/config.yml \
     --interop-num-validators 64 2>&1 | tee validator.log
-fi
-
-wait $GETH_PID $BEACON_PID
