@@ -16,6 +16,7 @@ geth --http --http.api eth,net,web3,admin \
     --unlock "0x123463a4b065722e99115d6c222f267d9cabb524" \
     --password ./execution/password.txt \
     --nat=extip:$PUBLIC_IP \
+    --verbosity 5 \
     --netrestrict 10.5.0.0/16 2>&1 | tee geth.log &
 
 beacon-chain --accept-terms-of-use \
@@ -39,4 +40,5 @@ validator --accept-terms-of-use \
     --datadir validatordata \
     --beacon-rpc-provider 127.0.0.1:4000 \
     --chain-config-file ./consensus/config.yml \
+    --verbosity trace \
     --interop-num-validators 64 2>&1 | tee validator.log

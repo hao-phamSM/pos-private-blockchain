@@ -17,6 +17,7 @@ geth --http --http.api eth,net,web3,admin \
     --password ./execution/password.txt \
     --nat=extip:$PUBLIC_IP \
     --bootnodes $(geth --exec "admin.nodeInfo.enode" attach http://10.5.0.5:8545 | grep -o 'enode://[^ "]*') \
+    --verbosity 5 \
     --netrestrict 10.5.0.0/16 2>&1 | tee geth.log &
 
 beacon-chain --accept-terms-of-use \
@@ -41,4 +42,5 @@ validator --accept-terms-of-use \
     --beacon-rpc-provider 127.0.0.1:4000 \
     --interop-num-validators 64 \
     --chain-config-file ./consensus/config.yml \
+    --verbosity trace \
     --interop-num-validators 64 2>&1 | tee validator.log

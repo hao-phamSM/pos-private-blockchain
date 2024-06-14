@@ -2,8 +2,8 @@ FROM ubuntu as builder
 
 RUN apt update && apt-get -y install build-essential unzip curl golang-go git
 
-# Build custom Geth
-COPY ./go-ethereum /go-ethereum
+# Build Geth
+RUN git clone https://github.com/ethereum/go-ethereum.git
 RUN cd /go-ethereum && make geth
 # Build Prysm
 RUN git clone https://github.com/prysmaticlabs/prysm.git && cd ./prysm

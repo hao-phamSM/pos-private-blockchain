@@ -24,3 +24,23 @@ var myInstance = counterContract.at('0x30bdaE426d3CBD42e9d41D23958Fac6AD8310f81'
 myInstance.number.call();
 
 // forge script script/Counter.sol --broadcast --rpc-url http://localhost:8545 --legacy
+
+// Auto-generate transactions, to test the transactions broadcast
+const fromAddress = "0x123463a4b065722e99115d6c222f267d9cabb524";
+const toAddress = "0x123c0ffee567beef890decade123fade456bed78";
+const value = web3.toWei('1', 'ether');
+
+async function sendTransactions(numberOfTransactions) {
+    for (let i = 0; i < numberOfTransactions; i++) {
+        try {
+            const receipt = await web3.eth.sendTransaction({
+                from: fromAddress,
+                to: toAddress,
+                value: value
+            });
+            // console.log(`Transaction ${i + 1} successful with hash: ${receipt.transactionHash}`);
+        } catch (error) {
+            console.error(`Transaction ${i + 1} failed:`, error);
+        }
+    }
+}

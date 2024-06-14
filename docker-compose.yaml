@@ -9,11 +9,14 @@ services:
       - ./execution:/devnet/execution
       - ./start_bootnode.sh:/devnet/start.sh
     command: sh -c "chmod +x ./start.sh && ./start.sh"
+    healthcheck:
+      test: curl -f localhost:8080/p2p
     ports:
       - 8545:8545
-      - 8080:8080
-      - 8081:8081
-      - 9090:9090
+      - 8551:8551
+      # - 8080:8080
+      # - 8081:8081
+      # - 9090:9090
     environment:
       - PUBLIC_IP=10.5.0.5
     networks:
@@ -30,8 +33,8 @@ services:
     command: sh -c "chmod +x ./start.sh && ./start.sh"
     ports:
       - 8546:8545
-      - 9091:9090
-      - 7501:7500
+      # - 9091:9090
+      # - 7501:7500
     environment:
       - PUBLIC_IP=10.5.0.6
       - HAS_VALIDATOR=1
@@ -40,7 +43,7 @@ services:
         ipv4_address: 10.5.0.6
     depends_on:
       bootnode:
-        condition: service_started
+        condition: service_healthy
 
   node2:
     hostname: node2
@@ -52,7 +55,7 @@ services:
     command: sh -c "chmod +x ./start.sh && ./start.sh"
     ports:
       - 8547:8545
-      - 9092:9090
+      # - 9092:9090
     environment:
       - PUBLIC_IP=10.5.0.7
       - HAS_VALIDATOR=1
@@ -61,7 +64,7 @@ services:
         ipv4_address: 10.5.0.7
     depends_on:
       bootnode:
-        condition: service_started
+        condition: service_healthy
 
   node3:
     hostname: node3
@@ -73,7 +76,7 @@ services:
     command: sh -c "chmod +x ./start.sh && ./start.sh"
     ports:
       - 8548:8545
-      - 9093:9090
+      # - 9093:9090
     environment:
       - PUBLIC_IP=10.5.0.8
     networks:
@@ -81,7 +84,7 @@ services:
         ipv4_address: 10.5.0.8
     depends_on:
       bootnode:
-        condition: service_started
+        condition: service_healthy
 
 networks:
   devnet:
